@@ -1,0 +1,145 @@
+# Bash Intrusion Detection System (IDS)
+
+A lightweight, customizable intrusion detection system written in Bash for Linux systems. Monitors system logs for suspicious activities and provides real-time alerts and automated responses.
+
+## Features
+
+- **Multiple Monitoring Modes**
+  - Fork mode (multi-process)
+  - Thread simulation mode
+  - Subshell mode
+
+- **Detection Capabilities**
+  - SSH brute force attempts
+  - Unauthorized root access
+  - Failed login patterns
+  - System file modifications
+  - Suspicious network activity
+
+- **Alert System**
+  - Email notifications
+  - Wall messages
+  - Log file monitoring
+  - Real-time status updates
+
+- **Firewall Integration**
+  - Automatic IP blocking
+  - UFW and iptables support
+  - IP whitelist/blacklist management
+
+- **Interactive Interface**
+  - Whiptail/Dialog-based menu
+  - Real-time monitoring status
+  - Alert management
+  - System maintenance
+
+## Prerequisites
+
+```bash
+# Required packages
+sudo apt-get install whiptail mailutils iptables
+```
+
+## Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd bash-ids
+
+# Set execute permissions
+chmod +x ids.sh
+
+# Configure the system
+cp config.sh.example config.sh
+nano config.sh
+```
+
+## Configuration
+
+Edit `config.sh` to customize your settings:
+
+```bash
+# filepath: config.sh
+LOG_DIR="/var/log/ids"
+ENABLE_EMAIL=true
+ENABLE_WALL=true
+ENABLE_AUTO_BLOCK=true
+BLOCK_DURATION=3600
+USE_UFW=false
+```
+
+## Usage
+
+### Basic Commands
+
+```bash
+# Start IDS
+./ids.sh start
+
+# Stop IDS
+./ids.sh stop
+
+# Check status
+./ids.sh status
+
+# Interactive menu
+./ids.sh menu
+```
+
+### Advanced Options
+
+```bash
+# Start in specific mode
+./ids.sh -f start    # Fork mode
+./ids.sh -t start    # Thread mode
+./ids.sh -s start    # Subshell mode
+
+# IP Management
+./ids.sh block 192.168.1.100
+./ids.sh unblock 192.168.1.100
+./ids.sh list-blocked
+
+# Maintenance
+./ids.sh clean 30    # Clean alerts older than 30 days
+./ids.sh summary week # Generate weekly summary
+```
+
+## Project Structure
+
+```
+bash-ids/
+├── ids.sh           # Main script
+├── config.sh        # Configuration file
+├── functions/
+│   ├── monitor.sh   # Log monitoring
+│   ├── alert.sh     # Alert management
+│   ├── firewall.sh  # Firewall operations
+│   └── process.sh   # Process management
+├── logs/            # Log files
+└── reports/         # Generated reports
+```
+
+## Monitoring
+
+The system monitors these log files by default:
+- `/var/log/auth.log`
+- `/var/log/syslog`
+- `/var/log/messages`
+- `/var/log/nginx/access.log`
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+=
+
+## Authors
+
+Mohamed SAIFI
+Aya Ouzarf
+Rahioui Youssef
